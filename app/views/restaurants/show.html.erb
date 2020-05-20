@@ -1,0 +1,26 @@
+<div class="container">
+  <h1><%= @restaurant.name %></h1>
+  <p><%= @restaurant.address %></p>
+  <p><%= @restaurant.phone_number %></p>
+  <p><%= @restaurant.category %></p>
+  <ul>
+    <% @restaurant.reviews.each do |review| %>
+      <li><%= review.content %> // rating: <%= review.rating %></li>
+    <% end %>
+  </ul>
+  <h3>Create a new Review for <%= @restaurant.name %></h3>
+  <%= simple_form_for([@restaurant, @review]) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :content %>
+    <%= f.input :rating %>
+  </div>
+
+  <div class="form-actions btn btn-primary mt-3 mb-3">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+  <%= link_to "Back", restaurants_path, class: "btn-primary p-2" %>
+</div>
